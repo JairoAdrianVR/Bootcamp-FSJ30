@@ -17,6 +17,9 @@ git remote add origin https:\\url.git
 Enviar el repositorio local a el remoto
 git push -u origin main --force
 
+Sincroniza el reposotorio local con el remoto
+git pull
+
 *------------Branch----------------*
 Listar las ramas
 git branch
