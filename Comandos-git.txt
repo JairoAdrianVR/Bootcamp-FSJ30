@@ -1,0 +1,34 @@
+Configuracion del perfil
+git config --global user.name "Pepito Fuentes"
+git config --global user.email pepito@kpo.com
+
+Alistar los jugadores
+git add .
+
+Agregar los cambios a la version final
+git commit -m "Mensajito lindo"
+
+Cambiar nombre de rama en la cual estamos parados
+git branch -M main 
+
+Enlazar un repositorio local con uno remoto
+git remote add origin https:\\url.git
+
+Enviar el repositorio local a el remoto
+git push -u origin main --force
+
+*------------Branch----------------*
+Listar las ramas
+git branch
+
+Eliminar la rama
+git branch -d nombre-rama
+
+Cambiamos de rama actual
+git checkout nombre-rama 
+
+Crear una rama y cambiarnos a ella
+git checkout -b nueva-rama
+
+Alternativa al checkout
+git switch -c nueva/rama
