@@ -2,8 +2,11 @@ Configuracion del perfil
 git config --global user.name "Pepito Fuentes"
 git config --global user.email pepito@kpo.com
 
-Alistar los jugadores
+Alistar todos los jugadores
 git add .
+
+Alistar un jugador
+git add HTML-CSS/index.html
 
 Agregar los cambios a la version final
 git commit -m "Mensajito lindo"
