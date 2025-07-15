@@ -156,6 +156,17 @@ nombresAlReves.forEach( (value,index) => {
     console.log(value);
 })
 
+//Foreach que reciba el array completo
+
+let arrayNum = [1,2,3,4,6,5];
+
+arrayNum.forEach( (value,index,array) => {
+    
+    if(index+1 < array.length){
+        console.log(array[index+1]);
+    }
+})
+
 /* 
 for(let value of nombres){
     console.log(value);
@@ -178,3 +189,58 @@ let numeritosPorDos = numeritos.map((value) => {
 })
 
 console.log(numeritosPorDos);
+
+//Filtrar la informacion
+// Filter -> filtramos la info y la retornamos en base a una condicion
+
+const usuarios = [{
+    nombre: "Jairo",
+    edad: 35
+},{
+    nombre: "Jorge",
+    edad: 28
+},
+{
+    nombre: "Jose",
+    edad: 18
+}]
+    // array.filter( (apodoValorDeCadaPosicion ) => { return CONDICION A CUMPLIR })
+const mayoresDe21 = usuarios.filter( (usuario) => {  return usuario.edad > 21 })
+console.log(mayoresDe21);
+
+// Find => Buscamos y RETORNAMOS un solo dato
+
+const usuarioJorge = usuarios.find( usuario => usuario.nombre === "Jorge");
+console.log(usuarioJorge);
+
+
+
+// Metodos OBLIGATORIOS
+let array = [];
+// Agregar datos al array
+// AL FINAL
+array.push(2);
+
+//EN PRIMERA POSICION
+array.unshift(1);
+
+// Eliminar datos del array
+// AL FINAL
+array.pop();
+
+//AL PRINCIPIO
+array.shift();
+console.log(array);
+
+// Obtener el largo de un array
+let largor = array.length;
+console.log(largor);
+
+//Strings
+// La propiedad lenght sirve tambien para strings, que feliz que soy con JS
+console.log("Holiwis Jairo ".length);
+
+// Metodo para eliminar los espacios al principio y al final
+let sinEspacios = "Holiwis Jairo ".trim();
+console.log(sinEspacios);
+console.log(sinEspacios.length);
