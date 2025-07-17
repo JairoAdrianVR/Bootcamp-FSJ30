@@ -33,6 +33,9 @@ btnApretable.addEventListener('click',() => {
     let dato = prompt("Ingresame tu nombre porfa. No preguntes para que")
     console.log(dato);
     
+    elementoDOM.style.fontFamily = "sans-serif";
+    elementoDOM.style.color = "red";
+    elementoDOM.style.marginLeft = "2rem";
 })
 
 
@@ -45,12 +48,25 @@ console.log(arraycito);
 //localStorage -> Almacenamiento local en el navegador  del usuario
 //localStorage -> Esta diseñado para guardar OBJETOS
 localStorage.setItem('arraycito',JSON.stringify(arraycito));
+let datita = localStorage.getItem('arraycito')
+//Mostramos los datos del localStorage QUE SON UN STRING
+console.log(datita);
+//Devolver la data a su tipo original
+let datitaArray = JSON.parse(datita);
+console.log(datitaArray)
 
-console.log(localStorage.getItem('arraycito'));
+
+/*
+    addEventListener, al boton con id btnArraycito
+    La funcionalidad de este boton es agregar un elemento con valor 4
+    al array llamado arraycito. Setearlo en el localStorage y mostrarlo en consola.
+*/
 
 btnArraycito.addEventListener('click', () => {
     console.log("Estoy andando");
     arraycito.push(4);
     console.log(arraycito);
-    
+
+    localStorage.setItem('arraycito',JSON.stringify(arraycito));
+    console.log(localStorage.getItem('arraycito'));
 })
