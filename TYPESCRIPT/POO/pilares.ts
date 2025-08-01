@@ -108,3 +108,35 @@ class Usuario{
 const usuarito = new Usuario("jose@meduermo.com","123456789");
 usuarito.changePassword('987654321');
 console.log(usuarito.showCredentials());
+
+//Tipo personalizado
+
+type User = {
+    name: string,
+    email:string,
+    password:string,
+    rol:string
+}
+
+let usuarito2:User = {
+    name:"Jairo",
+    email: "jairo@kpo.com",
+    password: "123456789",
+    rol: "admin"
+}
+
+interface IUser {
+    name: string,
+    email:string,
+    password:string,
+    rol:string
+}
+
+let usuarito3:IUser = {
+    name:"Jairo",
+    email: "jairo@kpo.com",
+    password: "123456789",
+    rol: "admin"
+}
+
+
