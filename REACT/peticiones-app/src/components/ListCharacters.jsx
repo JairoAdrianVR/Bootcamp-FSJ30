@@ -1,6 +1,7 @@
 //rafc -> snippet para crear el componente funcional con flecha
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CardCharacter } from "./CardCharacter";
+import { FavoritesContext } from "../contexts/FavoritesContext";
 
 /* 
 1- https://rickandmortyapi.com/api/character
@@ -12,20 +13,27 @@ export  const ListCharacters = () => {
     //Siempre que yo necesite una CAJA para GUARDAR ALGO voy a hacer un ESTADO
     const [listPjs, setListPjs] = useState([])
 
+    // Utilizamos el useContext -> Hook para utilizar un contexto previamente creado
+    // Sintaxis para cuando tenemos 1 SOLO VALOR EN EL CONTEXTO
+    //const valorContexto =  useContext(FavoritesContext)
+    //console.log(valorContexto);
+    const {favorites,setFavorites} = useContext(FavoritesContext)
+    //console.log(favorites);
+    
       // Las funciones adentro de un componente declarenlas con camelCase
   const peticionApi  = () => {
     //Peticion a una API
     fetch('https://rickandmortyapi.com/api/character')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        //console.log(data);
         //Necesito sacar esa data de aca adentro
         setListPjs(data.results)
     })
     .catch(error => console.error(error))
   }
   
-  console.log(listPjs);
+ // console.log(listPjs);
   
 
   //async function peticionApiAA(){}
@@ -59,9 +67,12 @@ export  const ListCharacters = () => {
     {listPjs.map( (character) => { 
      return <section key={character.id} className="col-md-3 col-sm-12"> 
         <CardCharacter 
+          id={character.id}
           name={character.name}
           image={character.image}
           status={character.status}
+          listFavorites={favorites}
+          changeFavorites={setFavorites}
         />
      </section>
 
