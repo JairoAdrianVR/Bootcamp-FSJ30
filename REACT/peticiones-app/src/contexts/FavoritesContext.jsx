@@ -1,7 +1,6 @@
 /* Vamos a declarar 2 cosas a la vez */
 
 import { createContext, useState } from "react";
-import { ListCharacters } from "../components/ListCharacters";
 
 //Crear el contexto 
 // eslint-disable-next-line react-refresh/only-export-components
