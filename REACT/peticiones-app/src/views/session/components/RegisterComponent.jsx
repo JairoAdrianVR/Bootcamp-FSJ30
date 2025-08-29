@@ -1,6 +1,8 @@
 import {useForm} from 'react-hook-form'
 import * as yup from 'yup'
-import {yupResolver} from '@hookform/resolvers'
+import { yupResolver } from "@hookform/resolvers/yup"
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../../repositories/firebase/config'
 
 const schema = yup.object({
   email: yup.string().email("Please enter a correct format: email@email.com").required(),
@@ -35,6 +37,22 @@ export const RegisterComponent = () => {
   const onSubmitForm = (data) => {
     console.log(data);
     
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    console.log(user);
+
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.error(errorCode);
+    console.error(errorMessage);
+    
+    // ..
+  });
+
   }
 
   return (

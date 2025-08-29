@@ -63,7 +63,7 @@ export  const ListCharacters = () => {
   return (
     <div className="row">
     {/* Recorrer el array para mostrar los datos -> Mapear los datos para pintarlos */}
-
+    
     {listPjs.map( (character) => { 
      return <section key={character.id} className="col-md-3 col-sm-12"> 
         <CardCharacter 
