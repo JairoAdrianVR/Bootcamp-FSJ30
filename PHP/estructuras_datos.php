@@ -207,5 +207,4 @@ $listita = new LinkedList();
 $listita->add(3);
 $listita->add(1);
 $listita->add(5);
-print_r($listita);
-?>
+print_r($listita);?>
