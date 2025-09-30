@@ -309,4 +309,4 @@ $arbolito->insert(17);
 $arbolito->insert(19);
 $arbolito->insert(13);
 print_r($arbolito);
-?>
+?> 
