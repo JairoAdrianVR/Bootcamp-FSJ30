@@ -1,13 +1,12 @@
 <?php 
-print_r($_POST);
+//print_r($_POST);
 require_once './Aerolinea.php';
-
 // $_SESSION -> Variable reservada para almacenar datos (Array assoc)
 //INICIAMOS LA SESION PARA PODER UTILIZAR LA VARIABLE $_SESSION
 
 session_start();
 
-print_r($_SESSION);
+//print_r($_SESSION);
 
 //Llamamos la clase Aerolineas para crear un objeto
 // include -> Incluir el archivo y si no existe, mostrar un error y continuar la ejecucion del codigo
@@ -16,6 +15,8 @@ print_r($_SESSION);
 // include_once -> Incluir el archivo una sola vez, si se vuelve a llamar dentro de este archivo, va a usar la misma referencia
 // require_once -> Requerir el archivo una sola vez, si se vuelve a llamar dentro de este archivo, va a usar la misma referencia
 
+
+print_r($_GET);
 
 
 // Persistencia de datos
@@ -44,8 +45,18 @@ if(isset($_POST['nombre_aerolinea'], $_POST['cantidad_aviones'], $_POST['tipo_ae
     // $_SESSION['aerolineas'][] = $aerolineas; otra forma de pushear los datos
     $_SESSION['aerolineas'] = $aerolineas;
 
-    echo "<h1>Aerolineas hasta ahora</h1><br>"; 
-    print_r($_SESSION['aerolineas']);
+    //echo "<h1>Aerolineas hasta ahora</h1><br>"; 
+    //print_r($_SESSION['aerolineas']);
+}
+
+//Buscar una aerolinea en particular a traves de su ID
+
+function obtenerAerolineaPorId($aerolinea_array, $id){
+    foreach($aerolinea_array as $aerolinea){
+        if($aerolinea->getId() == $id){
+            return $aerolinea;
+        }
+    }
 }
 ?>
 
@@ -59,6 +70,35 @@ if(isset($_POST['nombre_aerolinea'], $_POST['cantidad_aviones'], $_POST['tipo_ae
 <body style="background-color: gray;" >
     <h1>Holiwis bienvenido a Aerolineas Jairito</h1>
 
+    <?php 
+        if( isset($_GET['editar']) ){
+            $aerolineaEditable = obtenerAerolineaPorId($aerolineas,$_GET['editar']);
+            print_r($aerolineaEditable);
+?>    
+ <!-- FORMULARIO PARA EDITAR UNA AEROLINEA-->
+  <h3>Editar una nueva aerolinea</h3>
+    <form action="" method="POST">
+        <label for="nombre_aerolinea">Nombre Aerolinea: </label>
+        <input type="text" name="nombre_aerolinea" value="<?php echo $aerolineaEditable->getNombre() ?>" required>
+
+        <label for="nombre_aerolinea">Cantidad Aviones: </label>
+        <input type="text" name="cantidad_aviones" value="<?php echo $aerolineaEditable->getCant_aviones() ?>"required>
+
+        <label for="nombre_aerolinea">Tipo de Aerolinea: </label>
+        <select type="text" name="tipo_aerolinea" >
+            <option value="Privado">Privado</option>
+            <option value="Comercial" >Comercial</option>
+            <option value="Carga"  selected>Carga</option>
+            <option value="Nacional">Nacional</option>
+        </select>
+        <button type="submit">Editar</button>
+
+    </form>
+ 
+<?php
+        } else {
+?>
+    <!-- FORMULARIO PARA CREAR UNA AEROLINEA-->
     <h3>Crear una nueva aerolinea</h3>
     <form action="" method="POST">
         <label for="nombre_aerolinea">Nombre Aerolinea: </label>
@@ -77,7 +117,7 @@ if(isset($_POST['nombre_aerolinea'], $_POST['cantidad_aviones'], $_POST['tipo_ae
         <button type="submit">Crear</button>
 
     </form>
-
+<?php }?>
     <main>
         <table>
             <thead>
@@ -85,6 +125,7 @@ if(isset($_POST['nombre_aerolinea'], $_POST['cantidad_aviones'], $_POST['tipo_ae
                 <th>Nombre</th>
                 <th>Cantidad de aviones</th>
                 <th>Tipo Aerolinea</th>
+                <th>Acciones</th>
             </thead>
             <tbody>
                 <?php 
@@ -94,6 +135,10 @@ if(isset($_POST['nombre_aerolinea'], $_POST['cantidad_aviones'], $_POST['tipo_ae
                             <td>{$aero->getNombre()}</td>
                             <td>{$aero->getCant_aviones()}</td>
                             <td>{$aero->getTipo_aerolinea()}</td>
+                            <td>
+                            <a href='?editar={$aero->getId()}'>Editar</a>
+                            <a href='#'>Eliminar</a>
+                            </td>
                         </tr> ";
                     }
                 ?>
