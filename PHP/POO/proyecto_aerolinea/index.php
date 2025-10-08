@@ -28,6 +28,8 @@ if(!isset($_SESSION['aerolineas'])){
 
 $aerolineas = $_SESSION['aerolineas'];
 
+//Create form
+if(isset($_POST['createForm'])){
 
 if(isset($_POST['nombre_aerolinea'], $_POST['cantidad_aviones'], $_POST['tipo_aerolinea']) ){
 
@@ -48,16 +50,50 @@ if(isset($_POST['nombre_aerolinea'], $_POST['cantidad_aviones'], $_POST['tipo_ae
     //echo "<h1>Aerolineas hasta ahora</h1><br>"; 
     //print_r($_SESSION['aerolineas']);
 }
+}
 
 //Buscar una aerolinea en particular a traves de su ID
 
-function obtenerAerolineaPorId($aerolinea_array, $id){
-    foreach($aerolinea_array as $aerolinea){
+function obtenerAerolineaPorId($aerolineas, $id){
+    foreach($aerolineas as $aerolinea){
         if($aerolinea->getId() == $id){
             return $aerolinea;
         }
     }
 }
+
+//Edit form
+
+if( isset($_POST['updateForm'])){
+    //La logica para actualizar una aerolinea
+    foreach($aerolineas as $aerolinea){
+        if($aerolinea->getId() == $_GET['editar'] ){
+
+            $aerolinea->setNombre($_POST['nombre_aerolinea']);
+            $aerolinea->setCant_aviones($_POST['cantidad_aviones']);
+            $aerolinea->setTipo_aerolinea($_POST['tipo_aerolinea']);
+        }
+    }
+    header('Location: /PHP/POO/proyecto_aerolinea/index.php');
+}
+
+//Delete
+
+if(isset($_GET['eliminar'])){
+    print_r($_GET['eliminar']);
+
+    foreach($aerolineas as $idx => $aerolinea){
+
+        if($aerolinea->getId() == $_GET['eliminar'] ){
+            unset($aerolineas[$idx]);
+            break;
+        }
+    }
+
+    $_SESSION['aerolineas'] = $aerolineas;
+    header('Location: /PHP/POO/proyecto_aerolinea/index.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -78,18 +114,20 @@ function obtenerAerolineaPorId($aerolinea_array, $id){
  <!-- FORMULARIO PARA EDITAR UNA AEROLINEA-->
   <h3>Editar una nueva aerolinea</h3>
     <form action="" method="POST">
+        <input type="hidden" name="updateForm" value="editForm">
+
         <label for="nombre_aerolinea">Nombre Aerolinea: </label>
         <input type="text" name="nombre_aerolinea" value="<?php echo $aerolineaEditable->getNombre() ?>" required>
 
-        <label for="nombre_aerolinea">Cantidad Aviones: </label>
+        <label for="cantidad_aviones">Cantidad Aviones: </label>
         <input type="text" name="cantidad_aviones" value="<?php echo $aerolineaEditable->getCant_aviones() ?>"required>
 
-        <label for="nombre_aerolinea">Tipo de Aerolinea: </label>
+        <label for="tipo_aerolinea">Tipo de Aerolinea: </label>
         <select type="text" name="tipo_aerolinea" >
-            <option value="Privado">Privado</option>
-            <option value="Comercial" >Comercial</option>
-            <option value="Carga"  selected>Carga</option>
-            <option value="Nacional">Nacional</option>
+            <option value="Privado" <?php echo ($aerolineaEditable->getTipo_aerolinea() === 'Privado') ? 'selected' : '' ?> >Privado</option>
+            <option value="Comercial" <?php echo ($aerolineaEditable->getTipo_aerolinea() === 'Comercial') ? 'selected' : '' ?> >Comercial</option>
+            <option value="Carga" <?php echo ($aerolineaEditable->getTipo_aerolinea() === 'Carga' ) ? 'selected' : '' ?> >Carga</option>
+            <option value="Nacional" <?php echo ($aerolineaEditable->getTipo_aerolinea() === 'Nacional')? 'selected' : '' ?> >Nacional</option>
         </select>
         <button type="submit">Editar</button>
 
@@ -101,6 +139,8 @@ function obtenerAerolineaPorId($aerolinea_array, $id){
     <!-- FORMULARIO PARA CREAR UNA AEROLINEA-->
     <h3>Crear una nueva aerolinea</h3>
     <form action="" method="POST">
+        <input type="hidden" name="createForm" value="createForm">
+
         <label for="nombre_aerolinea">Nombre Aerolinea: </label>
         <input type="text" name="nombre_aerolinea" required>
 
@@ -137,7 +177,7 @@ function obtenerAerolineaPorId($aerolinea_array, $id){
                             <td>{$aero->getTipo_aerolinea()}</td>
                             <td>
                             <a href='?editar={$aero->getId()}'>Editar</a>
-                            <a href='#'>Eliminar</a>
+                            <a href='?eliminar={$aero->getId()}'>Eliminar</a>
                             </td>
                         </tr> ";
                     }
