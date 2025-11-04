@@ -22,7 +22,7 @@
                 <label class="form-label" for="">Curso</label>
                 <select class="form-control" name="curso">
                     <?php foreach($cursos as $curso) { ?>
-                        <option value="<?php echo $curso['id']; ?>" <?php if($curso['id'] === $estudiante['id_curso']) echo 'selected'; ?>>
+                        <option value="<?php echo $curso['id']; ?>">
                             <?php echo $curso['nombre']; ?>
                         </option>
                     <?php } ?>
